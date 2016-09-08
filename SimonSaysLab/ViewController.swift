@@ -15,14 +15,63 @@ class ViewController: UIViewController {
     @IBOutlet weak var winLabel: UILabel!
     var simonSaysGame = SimonSays()
     var buttonsClicked = 0
-    
+ 
+  
     override func viewDidLoad() {
         super.viewDidLoad()
+        winLabel.hidden = true
+        
     }
 }
 
 // MARK: - SimonSays Game Methods
 extension ViewController {
+    
+    @IBAction func redSimon(sender: AnyObject) {
+            simonSaysGame.guessRed()
+            sequence()
+            checkEndGame()
+        }
+    
+    
+    @IBAction func greenSimon(sender: AnyObject) {
+            simonSaysGame.guessGreen()
+            sequence()
+            checkEndGame()
+        
+    }
+    @IBAction func blueSimon(sender: AnyObject) {
+            simonSaysGame.guessBlue()
+            sequence()
+            checkEndGame()
+    
+    }
+        
+    
+    @IBAction func yellowSimon(sender: AnyObject) {
+            simonSaysGame.guessYellow()
+            sequence()
+            checkEndGame()
+    }
+    
+    
+    func sequence(){
+        buttonsClicked = 0
+        buttonsClicked += 1
+    }
+    
+    func checkEndGame(){
+    if simonSaysGame.wonGame(){
+        winLabel.text = "You Won"
+        winLabel.hidden = false
+    }else{
+        winLabel.hidden = true
+    }
+    
+    
+    }
+    
+    
     
     @IBAction func startGameTapped(sender: UIButton) {
         UIView.transitionWithView(startGameButton, duration: 0.9, options: .TransitionFlipFromBottom , animations: {
@@ -32,7 +81,7 @@ extension ViewController {
         displayTheColors()
     }
     
-    private func displayTheColors() {
+        private func displayTheColors() {
         self.view.userInteractionEnabled = false
         UIView.transitionWithView(displayColorView, duration: 1.5, options: .TransitionCurlUp, animations: {
             self.displayColorView.backgroundColor = self.simonSaysGame.nextColor()?.colorToDisplay
@@ -47,4 +96,7 @@ extension ViewController {
                 }
         })
     }
-}
+   
+   
+    }
+
